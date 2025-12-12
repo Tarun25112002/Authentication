@@ -30,3 +30,41 @@ export const signUp = async (req, res) => {
         res.status(500).json({message: error.message})
     }
 }
+
+export const login = async (req,res)=>{
+try {
+    const {email, password} = req.body
+    let existUser = await User.findOne({email})
+   
+    if(!existUser){
+        return res.json({message: "User does not exist"})
+    }
+    let matchPasswor = await bcrypt.compare(password, existUser.password)
+    if(!matchPasswor){
+        return res.json({message: "Password does not match"})
+    }
+     let token = generateToken(existUser._id);
+     res.cookie("token", token, {
+       httpOnly: true,
+       secure: process.env.NODE_ENViroment == "production",
+       sameSite: "strict",
+       maxAge: 7 * 24 * 60 * 60 * 1000,
+     });
+     res.json({user: {
+        firstName: existUser.firstName,
+        lastName: existUser.lastName,
+        userName: existUser.userName,
+        email: existUser.email
+     }})
+} catch (error) {
+    res.json({message: error.message})
+}
+}
+export const logout = async(req,res)=>{
+    try {
+      await  res.clearCookie("token")
+        return res.json({message: "Logout successfully"})
+    } catch (error) {
+        res.json({message: error.message})
+    }
+}
