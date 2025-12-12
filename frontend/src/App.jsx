@@ -125,10 +125,7 @@ function App() {
           <h1 className="mt-2 text-3xl font-semibold text-slate-900">
             Sign in or create an account
           </h1>
-          <p className="mt-2 text-sm text-slate-600">
-            Simple UI on a white canvas. Requests include credentials so your
-            backend can set the cookie.
-          </p>
+          
         </header>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.05fr_0.95fr]">
@@ -199,14 +196,7 @@ function App() {
             <h2 className="text-lg font-semibold text-slate-900">
               What to expect
             </h2>
-            <ul className="space-y-2 text-sm text-slate-700">
-              <li>• Minimal white layout without extra decoration.</li>
-              <li>
-                • Uses credentialed requests so backend sets httpOnly cookie.
-              </li>
-              <li>• Shows success or error responses inline.</li>
-            </ul>
-
+           
             {user && (
               <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
                 <p className="font-semibold">Signed in</p>
